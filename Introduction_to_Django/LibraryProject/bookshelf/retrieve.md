@@ -15,8 +15,11 @@ Retrieve and display all attributes of the book you just created.
 #### **Steps**
 
 ```python
-In [6]: b.title
-Out[6]: '1984'
+
+In [6]: b = Book.objects.get(title="Nineteen Eighty-Four")
+
+In [7]: b.title
+Out[7]: '1984'
 
 In [8]: b.author
 Out[8]: 'George Orwell'
