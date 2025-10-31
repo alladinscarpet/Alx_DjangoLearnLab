@@ -74,10 +74,10 @@ Out[15]:
 
 # --- DELETE ---
 # Retrieve book instance
-In [16]: b = Book.objects.get(title="Nineteen Eighty-Four")
+In [16]: book = Book.objects.get(title="Nineteen Eighty-Four")
 
 # Delete book instance
-In [17]: b.delete()
+In [17]: book.delete()
 Out[17]: (1, {'bookshelf.Book': 1})
 
 # Verify deletion
