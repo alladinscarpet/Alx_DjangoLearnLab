@@ -52,19 +52,20 @@ Out[9]:
  'publication_year': 1949}
 
 # --- UPDATE ---
+In [11]: book = Book.objects.get(title="1984")
+
 # Update book title
-In [10]: b.title = "Nineteen Eighty-Four"
+In [12]: book.title = "Nineteen Eighty-Four"
 
 # Verify update
-In [11]: b.title
-Out[11]: 'Nineteen Eighty-Four'
+In [13]: book.title
+Out[13]: 'Nineteen Eighty-Four'
 
 # Save changes
-In [12]: b.save()
+In [14]: book.save()
 
-# Check updated dictionary
-In [13]: b.__dict__
-Out[13]:
+In [15]: book.__dict__
+Out[15]:
 {'_state': <django.db.models.base.ModelState at 0x203dd5e1fa0>,
  'id': 4,
  'title': 'Nineteen Eighty-Four',
@@ -72,10 +73,13 @@ Out[13]:
  'publication_year': 1949}
 
 # --- DELETE ---
+# Retrieve book instance
+In [16]: b = Book.objects.get(title="Nineteen Eighty-Four")
+
 # Delete book instance
-In [14]: b.delete()
-Out[14]: (1, {'bookshelf.Book': 1})
+In [17]: b.delete()
+Out[17]: (1, {'bookshelf.Book': 1})
 
 # Verify deletion
-In [15]: Book.objects.all()
-Out[15]: <QuerySet []>
+In [18]: Book.objects.all()
+Out[18]: <QuerySet []>

@@ -15,8 +15,10 @@ Delete the book you created and confirm the deletion by trying to retrieve all b
 #### **Steps**
 
 ```python
-In [15]: b.delete()
-Out[15]: (1, {'bookshelf.Book': 1})
+In [16]: b = Book.objects.get(title="Nineteen Eighty-Four")
 
-In [16]: Book.objects.all()
-Out[16]: <QuerySet []>
+In [17]: b.delete()
+Out[17]: (1, {'bookshelf.Book': 1})
+
+In [18]: Book.objects.all()
+Out[18]: <QuerySet []>
