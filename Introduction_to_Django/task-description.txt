@@ -1,8 +1,7 @@
-Objective: Gain familiarity with Django by setting up a Django development environment and
-creating a basic Django project. This task aims to introduce you to the workflow of Django projects,
-including project creation and running the development server.
+Objective: Demonstrate proficiency in Django by creating a Book model within a Django app,
+implementing it according to specified attributes, and using Django’s ORM to perform database operations.
 
 Task Description:
-Install Django and create a new Django project named LibraryProject.
-This initial setup will serve as the foundation for developing Django applications.
-You’ll also explore the project’s default structure to understand the roles of various components.
+For this task, you will develop a Django app named bookshelf within your existing Django project.
+You will define a Book model with specific attributes and demonstrate basic CRUD operations
+through the Django shell. This task is structured to ensure consistent implementations suitable for automated checking.
