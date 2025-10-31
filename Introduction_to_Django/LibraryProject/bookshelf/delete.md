@@ -15,6 +15,9 @@ Delete the book you created and confirm the deletion by trying to retrieve all b
 #### **Steps**
 
 ```python
+# Import Book model
+In [1]: from bookshelf.models import Book
+
 In [16]: book = Book.objects.get(title="Nineteen Eighty-Four")
 
 In [17]: book.delete()
