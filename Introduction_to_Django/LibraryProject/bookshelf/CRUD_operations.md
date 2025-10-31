@@ -23,8 +23,7 @@ Out[2]: <QuerySet []>
 
 # --- CREATE ---
 # Create a Book instance
-In [3]: b = Book(title="1984", author="George Orwell", publication_year=1949)
-
+In [3]: b = Book.objects.create(title="1984", author="George Orwell", publication_year=1949)
 # Save to database
 In [4]: b.save()
 

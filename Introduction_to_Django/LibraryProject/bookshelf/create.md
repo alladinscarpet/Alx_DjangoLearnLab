@@ -20,7 +20,7 @@ In [1]: from bookshelf.models import Book
 In [2]: Book.objects.all()
 Out[2]: <QuerySet []>
 
-In [3]: b = Book(title="1984", author="George Orwell", publication_year=1949)
+In [3]: b = Book.objects.create(title="1984", author="George Orwell", publication_year=1949)
 
 In [4]: b.save()
 
