@@ -21,19 +21,17 @@ In [1]: from bookshelf.models import Book
 In [2]: Book.objects.all()
 Out[2]: <QuerySet []>
 
-# --- CREATE ---
+# --------------- CREATE ---------------#
 # Create a Book instance
 In [3]: b = Book.objects.create(title="1984", author="George Orwell", publication_year=1949)
-# Save to database
-In [4]: b.save()
 
 # Verify creation
 In [5]: Book.objects.all()
 Out[5]: <QuerySet [<Book: '1984', written by George Orwell, released in 1949>]>
 
-# --- READ ---
-# Access book attributes
 
+# ---------------- READ -----------------#
+# Access book attributes
 In [6]: b = Book.objects.get(title="Nineteen Eighty-Four")
 
 In [7]: b.title
@@ -51,7 +49,8 @@ Out[9]:
  'author': 'George Orwell',
  'publication_year': 1949}
 
-# --- UPDATE ---
+
+# ------------------ UPDATE ------------------#
 In [11]: book = Book.objects.get(title="1984")
 
 # Update book title
@@ -64,6 +63,7 @@ Out[13]: 'Nineteen Eighty-Four'
 # Save changes
 In [14]: book.save()
 
+# View internal dictionary
 In [15]: book.__dict__
 Out[15]:
 {'_state': <django.db.models.base.ModelState at 0x203dd5e1fa0>,
@@ -72,7 +72,8 @@ Out[15]:
  'author': 'George Orwell',
  'publication_year': 1949}
 
-# --- DELETE ---
+
+# -------------------- DELETE -------------------#
 # Retrieve book instance
 In [16]: book = Book.objects.get(title="Nineteen Eighty-Four")
 
