@@ -50,7 +50,7 @@ print()
 # Retrieve the librarian for a library
 print("Retrieve the librarian for a library....")
 library = Library.objects.get(name=library_name)
-ln = library.librarian
+ln = Librarian.objects.get(library=library)
 print(ln)
 
 
