@@ -1,2 +1,6 @@
 myvenv/
-LibraryProject/bookshelf/__pycache__/
+Introduction_to_Django/LibraryProject/bookshelf/__pycache__/
+
+django-models/LibraryProject/bookshelf/__pycache__/
+django-models/LibraryProject/LibraryProject/__pycache__/
+django-models/LibraryProject/relationship_app/__pycache__/
