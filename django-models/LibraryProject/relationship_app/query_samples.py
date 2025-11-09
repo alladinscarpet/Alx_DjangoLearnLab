@@ -31,7 +31,8 @@ librarian = Librarian.objects.create(name="Mary Jane", library=library)
 print("Query all books by a specific author...")
 author_name = "Amy Tan"
 author = Author.objects.get(name=author_name)
-books = author.books.all()
+#books = author.books.all()
+books = Book.objects.filter(author=author)  # Using filter
 print(books)
 print()
 
