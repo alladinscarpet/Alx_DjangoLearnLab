@@ -9,7 +9,7 @@ from .models import Library, Librarian, Author, Book
 
 # Create your views here.
 
-def index(request):
+def list_books(request):
     """Function-based view that retrieves all books
        and renders a template displaying the list."""
 

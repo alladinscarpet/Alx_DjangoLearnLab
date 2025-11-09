@@ -1,14 +1,14 @@
 '''URL routing'''
 
 from django.urls import path
-from . import views
-from .views import LibraryDetailView
+from .views import list_books, LibraryDetailView
 
-#  e.g. when someone visits the root of this app (/polls/),
-# r
+
+#  e.g. when someone visits the root of this app (/rship/),
+#
 urlpatterns = [
     # ex: /polls/
-    path("",views.index, name="index"),
+    path("",list_books, name="index"),
     path("library/<int:pk>/", LibraryDetailView.as_view(), name="library-detail"),
 
 ]
