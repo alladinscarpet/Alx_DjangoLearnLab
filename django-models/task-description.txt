@@ -1,0 +1,8 @@
+In this project, “Deep Dive into Django Models and Views,”
+you will advance your skills in using Django, a high-level Python web framework.
+This project is designed for novice learners aiming to solidify their understanding
+of Django’s ORM capabilities, view configurations, and user authentication features.
+Through a series of hands-on tasks, you will implement complex model relationships,
+develop both function-based and class-based views, and manage user authentication and permissions.
+By the end of this project, you will have a comprehensive understanding of how to build robust
+and scalable web applications using Django
