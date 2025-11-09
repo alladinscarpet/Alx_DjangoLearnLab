@@ -28,16 +28,18 @@ librarian = Librarian.objects.create(name="Mary Jane", library=library)
 
 
 # Query all books by a specific author
-print("Query all books by a specific author...\n")
-author = Author.objects.get(name="Amy Tan")
+print("Query all books by a specific author...")
+author_name = "Amy Tan"
+author = Author.objects.get(name=author_name)
 books = author.books.all()
 print(books)
 print()
 
 
 # List all books in a library.
-print("Query & list all books in a library....\n")
-library = Library.objects.get(name="Ba Sing Se Central Library")
+print("Query & list all books in a library....")
+library_name = "Ba Sing Se Central Library"
+library = Library.objects.get(name=library_name)
 lib_books = library.books.all()
 for book in lib_books:
     print(book)
@@ -45,8 +47,8 @@ print()
 
 
 # Retrieve the librarian for a library
-print("Retrieve the librarian for a library....\n")
-library = Library.objects.get(name="Ba Sing Se Central Library")
+print("Retrieve the librarian for a library....")
+library = Library.objects.get(name=library_name)
 ln = library.librarian
 print(ln)
 
