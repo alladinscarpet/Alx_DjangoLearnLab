@@ -34,8 +34,8 @@ urlpatterns = [
 
     # role-permission  routes
     # ex: /rship/books/add
-    path('books/add/', add_book, name='add-book'),
-    path('books/<int:book_id>/edit/', edit_book, name='edit-book'),
-    path('books/<int:book_id>/delete/', delete_book, name='delete-book'),
+    path('books/add_book/', add_book, name='add-book'),
+    path('books/<int:book_id>/edit_book/', edit_book, name='edit-book'),
+    path('books/<int:book_id>/delete_book/', delete_book, name='delete-book'),
 
 ]
