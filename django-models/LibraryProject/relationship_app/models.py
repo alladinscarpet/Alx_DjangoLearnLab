@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -39,3 +40,21 @@ class Librarian(models.Model):
 
     def __str__(self):
         return f"'{self.name}'"
+
+
+
+# UserProfile Model (Extending Django’s User)
+class UserProfile(models.Model):
+    ROLE_CHOICES = [
+        ('Admin', 'Admin'), # (value_in_db, human_readable_label)
+        ('Librarian', 'Librarian'),
+        ('Member', 'Member'),
+    ]
+    # Django’s built-in User model does NOT have a role field.
+    # So we create our own model connected 1–1 with User.
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    role = models.CharField(max_length=20, choices=ROLE_CHOICES)
+    # UserProfile.role has no influence on Django’s admin site, just 4 custom RBAC
+
+    def __str__(self):
+        return f"{self.user.username} - {self.role}"

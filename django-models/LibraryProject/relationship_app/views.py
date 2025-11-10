@@ -1,13 +1,18 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.template import loader
+
 
 from django.views.generic.detail import DetailView
 from .models import Library, Librarian, Author, Book
 
+# to log the user in right after registration
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import login  # to log the user in right after registration
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login
+
+
+# role restricted views
+from django.contrib.auth.decorators import user_passes_test
+from .models import UserProfile
 
 
 # Create your views here.
@@ -47,3 +52,33 @@ def register(request):
     else:
         form = UserCreationForm()
     return render(request, 'relationship_app/register.html', {'form': form})
+
+
+#-------------------custom role-based access control (RBAC)------------------------#
+# Helper functions to check role
+def is_admin(user):
+    return hasattr(user, 'userprofile') and user.userprofile.role == 'Admin'
+
+def is_librarian(user):
+    return hasattr(user, 'userprofile') and user.userprofile.role == 'Librarian'
+
+def is_member(user):
+    return hasattr(user, 'userprofile') and user.userprofile.role == 'Member'
+
+# actual role-restricted views
+# Only Admins can access admin_view
+@user_passes_test(is_admin)
+def admin_view(request):
+    return render(request, "relationship_app/admin_view.html")
+
+# Only Librarians can access librarian_view
+@user_passes_test(is_librarian)
+def librarian_view(request):
+    return render(request, "relationship_app/librarian_view.html")
+
+# Only Members can access member_view
+@user_passes_test(is_member)
+def member_view(request):
+    return render(request, "relationship_app/member_view.html")
+# If a user without permission tries, Django redirects them to the login page.
+
