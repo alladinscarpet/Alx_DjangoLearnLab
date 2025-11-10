@@ -1,59 +1,63 @@
-### 3. Implement Role-Based Access Control in Django
+### 4. Implementing Custom Permissions in Django
+
 
 
 #### Objective
-Implement role-based access control within a Django application to manage different user roles and permissions effectively.  
-You will extend the `User` model and create views that restrict access based on user roles.
+Implement custom permissions in your Django application to control access to specific actions such as adding, editing, and deleting book entries based on user roles.  
+This task will guide you through creating these permissions in the model and enforcing them in views.
 
 ---
 
 #### Task Description
-In your Django project, you will extend the Django `User` model to include user roles and develop views that restrict access based on these roles.  
-Your task is to set up this system by creating a new model for user profiles, defining views with access restrictions, and configuring URL patterns.
+In the **`relationship_app`** of your Django project, extend the existing `Book` model to include custom permissions.  
+You will then update the views to enforce these permissions, ensuring that only authorized users can perform certain actions.
 
 ---
 
 #### Steps
 
-1. **Extend the User Model with a UserProfile**
+1. **Extend the `Book` Model with Custom Permissions**
 
-   Create a **`UserProfile`** model that includes a `role` field with predefined roles.  
-   This model should be linked to Django's built-in `User` model with a one-to-one relationship.
+   Add custom permissions to the `Book` model to specify who can add, edit, or delete the entries.
 
-   - **Fields Required:**
-     - **`user`**: OneToOneField linked to Django's `User`.
-     - **`role`**: CharField with choices for 'Admin', 'Librarian', and 'Member'.
+   - **Model Changes Required:**
+     - Inside the `Book` model, define a nested **`Meta`** class.
+     - Within this `Meta` class, specify a **`permissions`** tuple that includes permissions like `can_add_book`, `can_change_book`, and `can_delete_book`.
 
-   - **Automatic Creation:**  
-     Use Django signals to automatically create a `UserProfile` when a new user is registered.
+2. **Update Views to Enforce Permissions**
 
-2. **Set Up Role-Based Views**
+   Adjust your views to check if a user has the necessary permissions before allowing them to perform create, update, or delete operations.
 
-   Create three separate views to manage content access based on user roles:
+   - **Views to Modify:**
+     - Use Django's **`permission_required`** decorator to secure views that add, edit, or delete books.
+     - For each view, apply the corresponding permission.
 
-   - **Views to Implement:**
-     - An **'Admin' view** that only users with the 'Admin' role can access. The name of the file should be **`admin_view`**.
-     - A **'Librarian' view** accessible only to users identified as 'Librarians'. The file should be named **`librarian_view`**.
-     - A **'Member' view** for users with the 'Member' role. The name of the file should be **`member_view`**.
+3. **Define URL Patterns for Secured Views**
 
-   - **Access Control:**
-     - Utilize the **`@user_passes_test`** decorator to check the user's role before granting access to each view.
+   Ensure that the secured views are accessible through specific URLs.  
+   Set up these URLs in your **`urls.py`** file and ensure they are properly named for clarity.
 
-3. **Configure URL Patterns**
+   - **URLs to Setup:**
+     - Create distinct paths for adding, editing, and deleting books.
+     - Link each path to its respective view with the appropriate permissions.
 
-   Define URL patterns that will route to the newly created role-specific views.  
-   Ensure that each URL is correctly linked to its respective view and that the URLs are named for easy reference.
+---
 
-   - **URLs to Define:**
-     - A URL for the 'Admin' view.
-     - A URL for the 'Librarian' view.
-     - A URL for the 'Member' view.
+#### Deliverables
 
-4. **Create Role-Based HTML Templates**
+1. **`models.py`**: Update the `Book` model to include a `Meta` class with defined custom permissions.
+2. **`views.py`**: Implement permission checks in the views that handle book creation, modification, and deletion.
+3. **`urls.py`**: Configure and submit the URL patterns that map to the secured views.
 
-   For each role, create an HTML template to display relevant content when users access their respective views.
+---
 
-   - **Templates to Create:**
-     - **`admin_view.html`** for Admin users.
-     - **`librarian_view.html`** for Librarians.
-     - **`member_view.html`** for Members.
+#### Instructions for Each File
+
+- **`models.py`**:  
+  In the `Book` model, add a `Meta` class defining the custom permissions.
+
+- **`views.py`**:  
+  For each action (add, edit, delete), use the **`permission_required`** decorator from `django.contrib.auth.decorators` to check the corresponding permission.
+
+- **`urls.py`**:  
+  Define URL patterns that use the views decorated with permissions.

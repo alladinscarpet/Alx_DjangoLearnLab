@@ -1,6 +1,10 @@
+'''
+Where you define what should happen when someone visits
+a certain web page (the logic behind routes).
+'''
+
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-
 
 from django.views.generic.detail import DetailView
 from .models import Library, Librarian, Author, Book
@@ -13,6 +17,9 @@ from django.contrib.auth import login
 # role restricted views
 from django.contrib.auth.decorators import user_passes_test
 from .models import UserProfile
+
+# enforce permissions
+from django.contrib.auth.decorators import permission_required
 
 
 # Create your views here.
@@ -54,7 +61,7 @@ def register(request):
     return render(request, 'relationship_app/register.html', {'form': form})
 
 
-#-------------------custom role-based access control (RBAC)------------------------#
+#========================custom role-based access control (RBAC)===============================#
 # Helper functions to check role
 def is_admin(user):
     return hasattr(user, 'userprofile') and user.userprofile.role == 'Admin'
@@ -82,3 +89,25 @@ def member_view(request):
     return render(request, "relationship_app/member_view.html")
 # If a user without permission tries, Django redirects them to the login page.
 
+
+
+#-----------------Enforce Permissions------------------#
+# Add a book (only users with can_add_book can access)
+@permission_required('relationship_app.can_add_book') # checks if current logged-in user has that permission.
+def add_book(request):
+    # Logic for adding a book (form handling)
+    return HttpResponse("You can add a book!")
+
+
+# Edit a book (only users with can_change_book)
+@permission_required('relationship_app.can_change_book')
+def edit_book(request, book_id):
+    # Logic for editing a book
+    return HttpResponse(f"You can edit book {book_id}!")
+
+
+# Delete a book (only users with can_delete_book)
+@permission_required('relationship_app.can_delete_book')
+def delete_book(request, book_id):
+    # Logic for deleting a book
+    return HttpResponse(f"You can delete book {book_id}!")

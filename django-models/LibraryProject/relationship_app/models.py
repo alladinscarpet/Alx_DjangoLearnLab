@@ -22,6 +22,14 @@ class Book(models.Model):
     def __str__(self):
         return f"'{self.title}', written by {self.author}"
 
+    # The Meta class is used to give extra information about the model.
+    class Meta:
+        permissions = [
+            ("can_add_book", "Can add a book"),
+            ("can_change_book", "Can change a book"),
+            ("can_delete_book", "Can delete a book"),
+        ]
+
 
 # Many Libraries can have Many Books (Many-to-Many)
 class Library(models.Model):
