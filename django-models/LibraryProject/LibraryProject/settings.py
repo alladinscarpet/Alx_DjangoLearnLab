@@ -58,8 +58,8 @@ ROOT_URLCONF = 'LibraryProject.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
+        'DIRS': [BASE_DIR /'templates'],
+        'APP_DIRS': True, # look inside each app's templates/
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -124,6 +124,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+
+
+# Where to redirect after login/logout:
+LOGIN_REDIRECT_URL = 'index'   # named URL to go to after login
+LOGOUT_REDIRECT_URL = 'login'  # after logout
+LOGIN_URL = 'login'            # where @login_required sends anonymous users
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

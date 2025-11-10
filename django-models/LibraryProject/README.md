@@ -1,55 +1,47 @@
-### 0. Introduction to Django Development Environment Setup
+### 2. Implementing User Authentication in Django
 
-**Mandatory**
 
 #### Objective
-Gain familiarity with Django by setting up a Django development environment and creating a basic Django project.  
-This task aims to introduce you to the workflow of Django projects, including project creation and running the development server.
+Develop the ability to manage user authentication within a Django application.  
+This task focuses on setting up user login, logout, and registration functionalities using Django's built-in authentication system.
 
 ---
 
 #### Task Description
-Install Django and create a new Django project named **LibraryProject**.  
-This initial setup will serve as the foundation for developing Django applications.  
-You’ll also explore the project’s default structure to understand the roles of various components.
+Enhance your **`relationship_app`** by adding user authentication features.  
+Implement views and templates for user login, logout, and registration to demonstrate how Django manages user sessions and permissions.
 
 ---
 
 #### Steps
 
-1. **Install Django**
+1. **Setup User Authentication Views**
 
-   - Ensure **Python** is installed on your system.  
-   - Install Django using **pip**:  
-     ```bash
-     pip install django
-     ```
+   - Utilize Django's built-in views and forms for handling user authentication.  
+   - You will need to create views for user login, logout, and registration.
 
-2. **Create Your Django Project**
+2. **Create Templates for Authentication**
 
-   - Create a new Django project by running:  
-     ```bash
-     django-admin startproject LibraryProject
-     ```
-   - This will create a new folder named **LibraryProject** containing the initial Django setup.
+   - Provide HTML templates for each authentication action (login, logout, and registration).  
+   - Templates will be provided, allowing you to focus on backend integrations.  
+   - Below is the recommended templates structure:
+```
+     relationship_app/
+     │── templates/
+     │   ├── relationship_app/
+     │   │   ├── login.html
+     │   │   ├── register.html
+     │   │   ├── logout.html
+```
 
-3. **Run the Development Server**
+3. **Configure URL Patterns**
 
-   - Navigate into your project directory:  
-     ```bash
-     cd LibraryProject
-     ```
-   - Create a `README.md` file inside the **LibraryProject** folder (you’re reading it now!).  
-   - Start the development server using:  
-     ```bash
-     python manage.py runserver
-     ```
-   - Open a web browser and go to [http://127.0.0.1:8000/](http://127.0.0.1:8000/) to view the default Django welcome page confirming that your setup was successful.
+   - Define URL patterns in **`relationship_app/urls.py`** to link to the authentication views.
 
-4. **Explore the Project Structure**
+4. **Test Authentication Functionality**
 
-   Familiarize yourself with the created project structure. Pay particular attention to:
+   - Ensure that users can register, log in, and log out.
 
-   - **`settings.py`** – Configuration for the Django project.  
-   - **`urls.py`** – The URL declarations for the project; acts as the “table of contents” for your Django-powered site.  
-   - **`manage.py`** – A command-line utility that lets you interact with this Django project (e.g., starting the server, creating apps, applying migrations).
+---
+
+**Note:** HTML Templates are provided.
