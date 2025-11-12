@@ -13,7 +13,6 @@ from .models import Library, Librarian, Author, Book
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 
-
 # role restricted views
 from django.contrib.auth.decorators import user_passes_test
 from .models import UserProfile
@@ -21,9 +20,11 @@ from .models import UserProfile
 # enforce permissions
 from django.contrib.auth.decorators import permission_required
 
+# user-input forms
+from .forms import CreateAuthorForm, CreateBookForm
 
-# Create your views here.
 
+# Create your views here:
 def list_books(request):
     """Function-based view that retrieves all books
        and renders a template displaying the list."""
@@ -51,7 +52,7 @@ def register(request):
     POST -> validate and create user, then log them in
     """
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = UserCreationForm(request.POST) # built-in form that validates username + password
         if form.is_valid():
             user = form.save()     # creates the user with hashed password
             login(request, user)   # starts a session so user is logged in
@@ -62,7 +63,7 @@ def register(request):
 
 
 #========================custom role-based access control (RBAC)===============================#
-# Helper functions to check role
+# <<<<<<<<<<<Helper functions to check role>>>>>>>>>>>>
 def is_admin(user):
     return hasattr(user, 'userprofile') and user.userprofile.role == 'Admin'
 
@@ -72,22 +73,65 @@ def is_librarian(user):
 def is_member(user):
     return hasattr(user, 'userprofile') and user.userprofile.role == 'Member'
 
-# actual role-restricted views
+def is_admin_or_librarian(user):
+    return hasattr(user, 'userprofile') and user.userprofile.role in ['Admin', 'Librarian']
+
+
+# <<<<<<<<<<<<<actual role-restricted views>>>>>>>>>>>>>>>>
 # Only Admins can access admin_view
 @user_passes_test(is_admin)
 def admin_view(request):
     return render(request, "relationship_app/admin_view.html")
+
+
 
 # Only Librarians can access librarian_view
 @user_passes_test(is_librarian)
 def librarian_view(request):
     return render(request, "relationship_app/librarian_view.html")
 
+@user_passes_test(is_admin_or_librarian)
+def create_author(request):
+    if request.method == 'POST':
+        form = CreateAuthorForm(request.POST) # to pass data to form
+        if form.is_valid():
+            author = form.save()
+            # Redirect to book creation, passing author id in URL
+            return redirect('add-book', author_id=author.id)
+    else:
+        form = CreateAuthorForm()
+    # for GET request display empty form
+    return render(request, 'relationship_app/create_author.html', {'form': form})
+
+@user_passes_test(is_admin_or_librarian)
+def create_book(request, author_id):
+    author = Author.objects.get(id=author_id)
+
+    if request.method == 'POST':
+        form = CreateBookForm(request.POST)
+        if form.is_valid():
+            # Set the author before saving
+            book = form.save(commit=False)
+            book.author = author
+            book.save()
+            return redirect('index')  # or anywhere else
+    else:
+        # Pre-fill the author field, but hide it from user if you prefer
+        form = CreateBookForm(initial={'author': author})
+
+    return render(request, 'relationship_app/create_book.html', {'form': form, 'author': author})
+
+
+
+
 # Only Members can access member_view
 @user_passes_test(is_member)
 def member_view(request):
     return render(request, "relationship_app/member_view.html")
 # If a user without permission tries, Django redirects them to the login page.
+
+
+
 
 
 
