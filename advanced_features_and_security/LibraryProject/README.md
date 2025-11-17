@@ -1,62 +1,61 @@
-### 0. Implementing a Custom User Model in Django 
-
-
+### 1. Managing Permissions and Groups in Django
 
 #### Objective
-Customize Django's user model in bookshelf app to suit the specific needs of your application, demonstrating an understanding of extending Django's authentication system.
+Implement and manage permissions and groups to control access to various parts of your Django application, enhancing security and functionality.
 
 ---
 
 #### Task Description
-For this task, you will replace Django's default user model with a custom user model that includes additional fields and functionality.  
-This is a critical feature for applications that require user attributes beyond Django's built-in user model.
+Develop a system within your Django application that utilizes groups and permissions to restrict access to certain parts of your application.  
+This task will demonstrate your ability to set up detailed access controls based on user roles and their assigned permissions.
 
 ---
 
 #### Steps
 
-1. **Set Up the Custom User Model**
+1. **Define Custom Permissions in Models**
 
-   - Duplicate the previous Django project directory **`django-models`** and rename it to **`advanced_features_and_security`**.
-   - Create a custom user model by extending **`AbstractUser`**, adding custom fields that are relevant to your application's needs.
+   Add custom permissions to one of your existing models (or a new model if preferable) to control actions such as viewing, creating, editing, or deleting instances of that model.
 
-   - **Fields to Add:**
-     - **`date_of_birth`**: A date field.
-     - **`profile_photo`**: An image field.
+   - **Model Permissions to Add:**
+     - Create permissions such as **`can_view`**, **`can_create`**, **`can_edit`**, and **`can_delete`** within your chosen model.
 
-2. **Update Settings to Use the Custom User Model**
+2. **Create and Configure Groups with Assigned Permissions**
 
-   Configure Django to use this custom user model for all user-related functionalities.
+   Set up user groups in Django and assign the newly created permissions to these groups.  
+   Use Django's admin site to manage these groups and their permissions.
 
-   - **Settings Configuration:**
-     - In your project's **`settings.py`**, set the **`AUTH_USER_MODEL`** to point to your new custom user model.
+   - **Groups to Setup:**
+     - Create groups like **`Editors`**, **`Viewers`**, and **`Admins`**.
+     - Assign appropriate permissions to each group. For example, `Editors` might have `can_edit` and `can_create` permissions.
 
-3. **Create User Manager for Custom User Model**
+3. **Enforce Permissions in Views**
 
-   Implement a custom user manager that handles user creation and queries, ensuring it can manage the added fields effectively.
+   Modify your views to check for these permissions before allowing users to perform certain actions.  
+   Use decorators such as **`permission_required`** to enforce these permissions in your views.
 
-   - **Custom Manager Functions to Implement:**
-     - **`create_user`**: Ensure it handles the new fields correctly.
-     - **`create_superuser`**: Ensure administrative users can still be created with the required fields.
+   - **Views to Modify or Create:**
+     - Ensure views that create, edit, or delete model instances check for the correct permissions.
+     - **Example:** Use `@permission_required('app_name.can_edit', raise_exception=True)` to protect an edit view.
 
-4. **Integrate the Custom User Model into Admin**
+4. **Test Permissions**
 
-   Modify the Django admin to support the custom user model, ensuring that administrators can manage users effectively through the Django admin interface.
+   Manually test the implementation by assigning different users to groups and verifying that the permissions are enforced correctly.
 
-   - **Admin Modifications Required:**
-     - Define a custom **`ModelAdmin`** class that includes configurations for the additional fields in your user model.
+   - **Testing Approach:**
+     - Create test users and assign them to different groups.
+     - Log in as these users and attempt to access various parts of the application to ensure that permissions are applied correctly.
 
-5. **Update Your Application to Use the Custom User Model**
+5. **Document the Setup**
 
-   Adjust any part of your application that references the user model to use the new custom model.
-
-   - **Application Updates:**
-     - Update all foreign keys or user model references in your other models to use the custom user model.
+   - Provide a concise guide or notes within your code on how the permissions and groups are set up and used in the application.
+   - This could be in the form of comments or a simple README file.
+   - Make sure to use the variable name as defined above such as **`can_edit`**, **`can_create`**.
 
 ---
 
 #### Deliverables
 
-1. **`models.py`**: Include your custom user model and custom user manager.
-2. **`admin.py`**: Set up the admin interface to manage the custom user model effectively.
-3. **`settings.py`**: Modify to specify the custom user model as the default for the project.
+1. **`models.py`**: Updated with custom permissions for at least one model.
+2. **`views.py`**: Updated to include permission checks in relevant views.
+3. **Documentation**: Comments or a README file explaining how permissions and groups are configured and used.

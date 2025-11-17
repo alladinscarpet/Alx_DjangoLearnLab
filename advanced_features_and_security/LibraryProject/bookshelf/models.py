@@ -17,6 +17,15 @@ class Book(models.Model):
         # special method that defines how an object is represented as a string.
         return f"'{self.title}', written by {self.author}, released in {self.publication_year}"
 
+    # custom permissions
+    class Meta:
+        permissions = [
+            ("can_view", "Can view book"),
+            ("can_create", "Can create book"),
+            ("can_edit", "Can edit book"),
+            ("can_delete", "Can delete book"),
+        ]
+
 
 # Custom User Manager - the factory that creates users and superusers
 class CustomUserManager(BaseUserManager):
