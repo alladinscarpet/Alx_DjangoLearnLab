@@ -30,7 +30,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-# Prevent browsers from MIME-type sniffing
+#------------Security Headers--------#
+# Stops browser from guessing content types. Prevents malicious downloads.
 SECURE_CONTENT_TYPE_NOSNIFF = True
 
 # Enable XSS blocking (older browsers, still good practice)
@@ -38,10 +39,23 @@ SECURE_BROWSER_XSS_FILTER = True
 
 # Prevent iframes unless intentional → protects against clickjacking
 X_FRAME_OPTIONS = 'DENY'
-
-# Cookies only sent via HTTPS (production)
+'''
+# ---------------HTTPS (production)--------------#
+# Cookies only sent via HTTPS
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
+
+# HTTPS Enforcement
+# Redirect all HTTP → HTTPS
+SECURE_SSL_REDIRECT = True
+
+# Enable Strict Transport Security (HSTS)
+SECURE_HSTS_SECONDS = 31536000            # 1 year
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True     # include *.yourdomain.com
+SECURE_HSTS_PRELOAD = True                # allow browser preload lists
+'''
+
+
 
 
 # Application definition

@@ -1,4 +1,4 @@
-<form method="GET" action="{% url 'books-list' %}">
+<form method="GET" action="{% url 'book-list' %}">
     {% csrf_token %}
     <input type="text" name="query" value="{{ form.query.value|default_if_none:"" }}">
     <button type="submit">Search</button>
