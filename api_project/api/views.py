@@ -21,6 +21,10 @@ from rest_framework import generics
 from .serializers import BookSerializer
 from rest_framework import viewsets
 
+# permission 4 view-set
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
+
+
 # Create your views here.
 #----------------------------------CBV----------------------------------------#
 # entire “GET all books” API with only 3 lines of logic.
@@ -41,6 +45,7 @@ class BookListCreate(ListCreateAPIView):
 class BookViewSet(viewsets.ModelViewSet):
     queryset = Book.objects.all()          # what data this view set works with
     serializer_class = BookSerializer      # how data is converted to/from JSON
+    permission_classes = [IsAuthenticated]  # <— only logged-in users can CRUD
 
 '''
 Think of CBVs as individual tools in a toolbox:

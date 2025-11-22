@@ -1,70 +1,62 @@
-### 2. Implementing CRUD Operations with ViewSets and Routers in Django REST Framework
-
-
+### 3. Implementing Authentication and Permissions in Django REST Framework
 
 #### Objective
-Expand your API functionality by using Django REST Framework's ViewSets and Routers to implement CRUD (Create, Read, Update, Delete) operations on the `Book` model.  
-This approach simplifies the management of standard database operations through RESTful APIs.
+Secure your API endpoints by implementing various authentication schemes and permission settings in Django REST Framework.  
+This task will ensure that only authorized users can access and modify data through your API.
 
 ---
 
 #### Task Description
-In this task, you will replace the simple list view created previously with a full set of CRUD operations using DRF's ViewSets.  
-This will allow clients to not only retrieve but also create, update, and delete books via your API.
+For this task within your **`api_project`**, you will add authentication and permission layers to your existing API endpoints.  
+This will involve configuring DRF to use token authentication and setting up permission classes to restrict access based on user roles or authentication status.
 
 ---
 
 #### Steps
 
-1. **Create a ViewSet**
+1. **Configure Authentication**
 
-   ViewSets in DRF allow you to consolidate common logic for handling standard operations into a single class that handles all HTTP methods (GET, POST, PUT, DELETE).
+   Set up token authentication in DRF, allowing your API to handle and verify tokens for authenticated requests.
 
-   - **Define the ViewSet:**
-     - In **`api/views.py`**, extend the existing view setup by adding a new class **`BookViewSet`** that handles all CRUD operations.
-     - Use `rest_framework.viewsets.ModelViewSet`, which provides implementations for various actions like list, create, retrieve, update, and destroy.
-
-2. **Set Up a Router**
-
-   Routers in DRF automatically determine the URL conf based on your ViewSet.
-
-   - **Configure the Router:**
-     - In **`api/urls.py`**, import `DefaultRouter` from `rest_framework.routers` and register your `BookViewSet`.
-     - Register the BookViewSet with the router as follows:
-```python
-       router.register(r'books_all', BookViewSet, basename='book_all')
+   - **Install and Configure Authentication:**
+     - If not already included, add **`rest_framework.authtoken`** to your `INSTALLED_APPS` in **`settings.py`**.
+     - Run the following command to create the necessary database tables for token management:
+```bash
+       python manage.py migrate
 ```
+     - Update your DRF settings in **`settings.py`** to include token authentication in the `DEFAULT_AUTHENTICATION_CLASSES`.
 
-     - The router will handle creating the appropriate URL patterns for all CRUD operations on the `Book` model.
+2. **Generate and Use Tokens**
 
-   Your URL patterns in **`api/urls.py`** should now look like this:
-```python
-   urlpatterns = [
-       # Route for the BookList view (ListAPIView)
-       path('books/', BookList.as_view(), name='book-list'),
+   Provide a way for users to obtain a token and use it for authenticated requests.
 
-       # Include the router URLs for BookViewSet (all CRUD operations)
-       path('', include(router.urls)),  # This includes all routes registered with the router
-   ]
-```
+   - **Token Retrieval Endpoint:**
+     - Implement a view that allows users to obtain a token by providing their username and password.
+     - This can be done using DRF's built-in views like **`obtain_auth_token`**.
 
-3. **Test CRUD Operations**
+3. **Define Permission Classes**
 
-   Ensure that each of the CRUD operations works as expected. Test creating, retrieving, updating, and deleting books through your API.
+   Control who can access your API views based on permissions. Define custom permission classes or use DRF's built-in permissions to restrict access.
 
-   - **Testing Method:**
-     - Use tools like Postman or curl to send POST, GET, PUT, and DELETE requests to your API endpoints and verify the responses.
+   - **Set Up Permissions:**
+     - Use `rest_framework.permissions` to apply basic permissions like **`IsAuthenticated`**, **`IsAdminUser`**, or custom permissions based on your application's needs.
+     - Modify your `ViewSet` configurations to include the appropriate permissions.
 
-   **Tip:** Be sure to test the following operations:
-   - **GET** `/books_all/` – List all books
-   - **GET** `/books_all/<id>/` – Retrieve a book by its ID
-   - **POST** `/books_all/` – Create a new book
-   - **PUT** `/books_all/<id>/` – Update a book
-   - **DELETE** `/books_all/<id>/` – Delete a book
+4. **Test Authentication and Permissions**
+
+   Verify that your API endpoints are secure by testing with and without authentication tokens, and check the behavior based on different user permissions.
+
+   - **Testing Authentication:**
+     - Use tools like Postman or curl to send requests with and without the token to see if the permissions are enforced correctly.
+
+5. **Document the Authentication and Permission Setup**
+
+   Provide documentation or comments in your code explaining how authentication and permissions are configured and how they work in your API setup.
 
 ---
 
 #### Deliverables
 
-1. **`views.py`**: Updated with `BookViewSet` that handles all CRUD operations.
-2. **`urls.py`**: Includes the configuration using `DefaultRouter` to route requests to the `BookViewSet`.
+1. **Updated `settings.py`**: Include token authentication in the REST framework settings.
+2. **Authentication Views**: Implement or enable views for token retrieval.
+3. **`views.py`**: Update viewsets with permission classes.
