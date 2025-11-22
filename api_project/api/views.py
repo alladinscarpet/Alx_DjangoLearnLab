@@ -7,14 +7,15 @@ ListCreateAPIView → handles GET + POST  on the same URL.
 '''
 
 from django.shortcuts import render
-from rest_framework.generics import ListAPIView, ListCreateAPIView, RetrieveAPIView, CreateAPIView
+from rest_framework import generics
+#from rest_framework.generics import ListAPIView, ListCreateAPIView, RetrieveAPIView, CreateAPIView
 from .models import Book
 from .serializers import BookSerializer
 
 # Create your views here.
 
 # entire “GET all books” API with only 3 lines of logic.
-class BookList(ListAPIView):
+class BookList(generics.ListAPIView):
     queryset = Book.objects.all() # tells the view what data to fetch from DB
     serializer_class = BookSerializer # tells DRF how to convert that data to JSON
 
