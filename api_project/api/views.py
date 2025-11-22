@@ -23,6 +23,7 @@ from rest_framework import viewsets
 
 # permission 4 view-set
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from .permissions import IsAdminOrReadOnly
 
 
 # Create your views here.
@@ -45,6 +46,8 @@ class BookListCreate(ListCreateAPIView):
 class BookViewSet(viewsets.ModelViewSet):
     queryset = Book.objects.all()          # what data this view set works with
     serializer_class = BookSerializer      # how data is converted to/from JSON
+
+    #permission_classes = [IsAdminOrReadOnly] # allows anyone to read + only admin users can perform write operations
     permission_classes = [IsAuthenticated]  # <— only logged-in users can CRUD
 
 '''
