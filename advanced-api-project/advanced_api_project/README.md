@@ -1,67 +1,55 @@
-### 0. Setting Up a New Django Project with Custom Serializers in Django REST Framework
+### 1. Building Custom Views and Generic Views in Django REST Framework
+
 
 #### Objective
-Initiate a new Django project tailored for advanced API development with Django REST Framework, focusing on creating custom serializers that handle complex data structures and nested relationships.
+Learn to construct custom views and utilize generic views in Django REST Framework to handle specific use cases and streamline API development.
 
 ---
 
 #### Task Description
-This task involves setting up a new Django project from scratch, installing Django REST Framework, and configuring a clean environment to develop an API that utilizes custom serializers, including handling nested objects and implementing data validation.
+Expand your **`advanced-api-project`** by creating and configuring custom views using Django REST Framework's powerful generic views and mixins.  
+This task will focus on efficiently handling CRUD operations and fine-tuning API behavior to meet specific requirements.
 
 ---
 
 #### Steps
 
-1. **Install Django and Django REST Framework**
+1. **Set Up Generic Views**
 
    - **Action Items:**
-     - Install Django and Django REST Framework using pip.
-     - In your `advanced-api-project` directory, create a new Django project named **`advanced-api-project`** using the following command:
-```bash
-       django-admin startproject advanced-api-project
-```
-       This ensures that Django initializes the project without creating an additional nested folder.
-     - Inside the project, create a new Django app named **`api`**.
+     - Implement a set of generic views for the `Book` model to handle CRUD operations. This includes:
+       - A **`ListView`** for retrieving all books.
+       - A **`DetailView`** for retrieving a single book by ID.
+       - A **`CreateView`** for adding a new book.
+       - An **`UpdateView`** for modifying an existing book.
+       - A **`DeleteView`** for removing a book.
 
-2. **Configure the Project**
+2. **Define URL Patterns**
 
-   - **Settings Configuration:**
-     - Add **`rest_framework`** to `INSTALLED_APPS` in your project's **`settings.py`**.
-     - Ensure the project is set to use Django's default SQLite database for simplicity, or configure another database if preferred.
+   - **Routing Requirements:**
+     - Configure URL patterns in **`api/urls.py`** to connect the aforementioned views with specific endpoints.
+     - Each view should have a unique URL path corresponding to its function (e.g., `/books/` for the list view, `/books/<int:pk>/` for the detail view).
 
-3. **Define Data Models**
+3. **Customize View Behavior**
 
-   - **Model Requirements:**
-     - Create two models, **`Author`** and **`Book`**.
-     - The `Author` model should have the following fields:
-       - **`name`**: A string field to store the author's name.
-     - The `Book` model should have the following fields:
-       - **`title`**: A string field for the book's title.
-       - **`publication_year`**: An integer field for the year the book was published.
-       - **`author`**: A foreign key linking to the `Author` model, establishing a one-to-many relationship from Author to Books.
+   - **Customization Instructions:**
+     - Customize the `CreateView` and `UpdateView` to ensure they properly handle form submissions and data validation.
+     - Integrate additional functionalities such as permission checks or filters directly into the views using DRF's built-in features or custom methods.
 
-   - **Action Items:**
-     - Define these models in **`api/models.py`**.
-     - Run migrations to create these models in the database.
+4. **Implement Permissions**
 
-4. **Create Custom Serializers**
+   - **Permissions Setup:**
+     - Apply Django REST Framework's permission classes to protect API endpoints based on user roles.
+     - For example, restrict `CreateView`, `UpdateView`, and `DeleteView` to authenticated users only, while allowing read-only access to unauthenticated users for `ListView` and `DetailView`.
 
-   - **Serializer Details:**
-     - Create a **`BookSerializer`** that serializes all fields of the `Book` model.
-     - Create an **`AuthorSerializer`** that includes:
-       - The `name` field.
-       - A nested `BookSerializer` to serialize the related books dynamically.
-
-   - **Validation Requirements:**
-     - Add custom validation to the `BookSerializer` to ensure the `publication_year` is not in the future.
-
-5. **Document Your Model and Serializer Setup**
-
-   - **Documentation Requirements:**
-     - In the **`models.py`** and **`serializers.py`**, add detailed comments explaining the purpose of each model and serializer.
-     - Describe how the relationship between `Author` and `Book` is handled in your serializers.
-
-6. **Implement and Test**
+5. **Test the Views**
 
    - **Testing Guidelines:**
-     - Use Django admin or the Django shell to manually test creating, retrieving, and serializing `Author` and `Book` instances to ensure your serializers work as expected.
+     - Manually test each view through tools like Postman or curl to ensure they behave as expected. This includes testing the creation, retrieval, update, and deletion of `Book` instances.
+     - Confirm that permissions are enforced correctly by attempting to access endpoints with and without proper credentials.
+
+6. **Document the View Configurations**
+
+   - **Documentation Requirements:**
+     - Provide clear documentation in your code (via comments) and an external README detailing how each view is configured and intended to operate.
+     - Outline any custom settings or hooks used in the views to extend or modify their default behavior.
