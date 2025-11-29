@@ -17,7 +17,7 @@ urlpatterns = [
     #path('books/', views.BookListCreate.as_view(), name="book_list_create")
 
     # router handles all CRUD URLs
-    # ex: /books_all/
-    # ex: /books_all/<id>/
+    # ex: api/books_all/
+    # ex: api/books_all/<id>/
     path('', include(router.urls)),
 ]

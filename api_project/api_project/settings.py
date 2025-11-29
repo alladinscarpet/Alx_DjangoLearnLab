@@ -41,16 +41,20 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'api'
 ]
-
+'''
 REST_FRAMEWORK = {
+# Defines how users can authenticate (token, session, OAuth, etc.)
+# This only defines how a user can authenticate — not whether authentication is required.
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.TokenAuthentication', 
     ],
+    
+# Requires user authentication on every request    
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
     ]
 }
-
+'''
 
 
 MIDDLEWARE = [
