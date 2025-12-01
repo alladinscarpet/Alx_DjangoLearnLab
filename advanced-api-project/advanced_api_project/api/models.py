@@ -1,4 +1,7 @@
 from django.db import models
+from django.core.exceptions import ValidationError
+from datetime import datetime
+
 
 # Create your models here.
 class Author(models.Model):
@@ -15,4 +18,11 @@ class Book(models.Model):
 
     def __str__(self):
         return f"'{self.title}', written by {self.author} in {self.publication_year}"
+
+    '''def clean(self):
+        current_year = datetime.now().year
+        if self.publication_year > current_year:
+            raise ValidationError("Publication year cannot be in the future.")'''
+
+
 

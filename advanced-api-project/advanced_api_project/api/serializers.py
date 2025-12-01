@@ -15,14 +15,15 @@ class BookSerializer(serializers.ModelSerializer):
         model = Book
         fields = "__all__"
 
-    # custom validation to ensure publication_year
+    # custom validation - Field-level validation (validate_<field_name>)
+    # to ensure publication_year
     # is not greater than the current year.
-    def validate(self, value):
+    def validate_publication_year(self, value):
         current_year = datetime.now().year
         if value > current_year:
             raise serializers.ValidationError("Publication year cannot be in the future.")
         return value
-
+# validate methods are only triggered when serializers are used, typically in DRF views handling API requests.
 
 class AuthorSerializer(serializers.ModelSerializer):
     """
@@ -32,7 +33,7 @@ class AuthorSerializer(serializers.ModelSerializer):
     books = BookSerializer(many=True, read_only=True)
     # "books" comes from related_name='books' in the Book model.
 
-    # Show me a list of books belonging to this object,
+    # Shows me a list of books belonging to this object,
     # formatted using BookSerializer, but don’t allow editing these books through this serializer
     class Meta:
         model = Author
