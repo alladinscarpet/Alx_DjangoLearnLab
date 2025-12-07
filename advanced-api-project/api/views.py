@@ -21,6 +21,8 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticate
 
 # filters
 from django_filters import rest_framework
+from rest_framework import filters
+
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
 from .filters import BookFilter
@@ -35,7 +37,7 @@ class BookListView(generics.ListAPIView):
 
     # Enable filtering, searching, ordering
     renderer_classes = [renderers.JSONRenderer, renderers.BrowsableAPIRenderer] # No browsable API UI/returns JSON
-    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
 
     # 1. Filtering
     filterset_class = BookFilter
