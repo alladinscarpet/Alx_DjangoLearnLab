@@ -1,22 +1,40 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Django Blog{% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'blog/css/styles.css' %}">
+    <script src="{% static 'blog/js/scripts.js' %}"></script>
 </head>
 <body>
     <header>
         <nav>
             <ul>
-                <li><a href="{% url 'home' %}">Home</a></li>
-                <li><a href="{% url 'posts' %}">Blog Posts</a></li>
-                <li><a href="{% url 'login' %}">Login</a></li>
-                <li><a href="{% url 'register' %}">Register</a></li>
+                <li><a href="{% url 'index' %}">Home</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                    <li><a href="{% url 'profile' %}">Profile</a></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                    <li><a href="{% url 'register' %}">Register</a></li>
+                {% endif %}
             </ul>
         </nav>
     </header>
+
+    <!-- Messages Section -->
+    {% if messages %}
+    <div class="messages-container">
+        {% for message in messages %}
+            <div class="message {{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
 
     <div class="content">
         {% block content %}
@@ -27,7 +45,5 @@
     <footer>
         <p>&copy; 2024 Django Blog</p>
     </footer>
-
-    <script src="{% static 'js/scripts.js' %}"></script>
 </body>
 </html>

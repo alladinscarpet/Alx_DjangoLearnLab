@@ -121,10 +121,17 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
+# Django automatically loads static files inside each app’s static/ folder.
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    BASE_DIR / 'static',
-]
+
+
+
+
+# Where to redirect after login/logout:
+LOGIN_REDIRECT_URL = 'index'   # named URL to go to after login
+LOGOUT_REDIRECT_URL = 'login'  # after logout
+LOGIN_URL = 'login'            # where @login_required sends anonymous users
+
 
 
 # Default primary key field type

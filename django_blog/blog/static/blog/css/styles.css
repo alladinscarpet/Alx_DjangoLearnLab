@@ -1,45 +1,143 @@
-/* Basic reset */
+/* Reset some default styles */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: Arial, sans-serif;
 }
 
 body {
-    font-family: Arial, sans-serif;
     background-color: #f9f9f9;
     color: #333;
+    line-height: 1.6;
 }
 
 header {
-    background-color: #333;
-    padding: 10px;
-    text-align: center;
+    background-color: #2c3e50;
+    color: #fff;
+    padding: 10px 20px;
 }
 
 header nav ul {
-    list-style-type: none;
+    list-style: none;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 header nav ul li {
-    display: inline;
-    margin: 0 15px;
+    margin-right: 20px;
 }
 
 header nav ul li a {
-    color: white;
+    color: #fff;
     text-decoration: none;
-    font-size: 18px;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+header nav ul li a:hover {
+    color: #1abc9c;
 }
 
 .content {
-    margin: 20px;
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+h1 {
+    margin-bottom: 20px;
+    color: #2c3e50;
+}
+
+p {
+    margin-bottom: 15px;
 }
 
 footer {
     text-align: center;
-    margin-top: 50px;
-    padding: 10px;
-    background-color: #333;
-    color: white;
+    padding: 15px 0;
+    margin-top: 30px;
+    background-color: #2c3e50;
+    color: #fff;
+    border-top: 2px solid #1abc9c;
 }
+
+/* Buttons */
+button, input[type="submit"] {
+    padding: 10px 20px;
+    border: none;
+    background-color: #1abc9c;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+button:hover, input[type="submit"]:hover {
+    background-color: #16a085;
+}
+
+/* Forms */
+form.form-container input,
+form.form-container textarea,
+form.form-container select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+form.form-container input[type="submit"] {
+    background-color: #1abc9c;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    padding: 10px 20px;
+}
+
+form.form-container input[type="submit"]:hover {
+    background-color: #16a085;
+}
+
+/* Messages styling */
+.messages-container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 10px;
+}
+
+.message {
+    padding: 10px 15px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+/* Different colors based on message type */
+.message.success {
+    background-color: #28a745; /* green */
+}
+
+.message.error {
+    background-color: #dc3545; /* red */
+}
+
+.message.info {
+    background-color: #17a2b8; /* blue */
+}
+
+.message.warning {
+    background-color: #ffc107; /* yellow */
+    color: #000;
+}
+
+
+

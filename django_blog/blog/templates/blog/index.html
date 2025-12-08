@@ -1,0 +1,20 @@
+{% extends "blog/base.html" %}
+
+{% block title %}Home - Django Blog{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+    <h2>Welcome back, {{ user.username }}!</h2>
+{% else %}
+    <h2>Welcome to the Django Blog!</h2>
+{% endif %}
+
+<p>Discover amazing posts, share your thoughts, and join our community.</p>
+<p>Here are the latest 5 blog posts</p>
+    <ul>
+        {% for post in latest_posts %}
+        <li>{{ post.title }} by {{ post.author }}</li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}
