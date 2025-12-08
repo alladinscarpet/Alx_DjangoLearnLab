@@ -12,9 +12,9 @@ urlpatterns = [
     # ex: POST api/books/create/
     path('books/create/', views.BookCreateView.as_view(), name='book-create'),
 
-    # ex: PUT/PATCH api/books/<pk>/update/
+    # ex: PUT/PATCH api/books/update/<pk>
     path('books/update/<int:pk>/', views.BookUpdateView.as_view(), name='book-update'),
 
-    # ex: DELETE api/books/<pk>/delete/
+    # ex: DELETE api/books/delete/<pk>
     path('books/delete/<int:pk>/', views.BookDeleteView.as_view(), name='book-delete'),
 ]

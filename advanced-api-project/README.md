@@ -1,53 +1,53 @@
-### 2. Implementing Filtering, Searching, and Ordering in Django REST Framework
-
+### 3. Writing Unit Tests for Django REST Framework APIs
 
 
 #### Objective
-Enhance the usability and functionality of your API by implementing filtering, searching, and ordering capabilities.  
-This task focuses on providing users with the tools to easily access and manipulate the data presented through your API.
+Develop and execute comprehensive unit tests for your Django REST Framework APIs to ensure the integrity of your endpoints and the correctness of response data and status codes.
 
 ---
 
 #### Task Description
-For this task within your **`advanced-api-project`**, you will add advanced query capabilities to your existing views that manage the `Book` model.  
-This will allow API consumers to filter, search, and order the books based on different criteria.
+In this task within your **`advanced-api-project`**, you will create unit tests for the API endpoints you've developed, focusing on testing their functionality, response data integrity, and status code accuracy.  
+This ensures that your API behaves as expected under various conditions and inputs.  
+The tests should be written in the **`/api/test_views.py`** file.
 
 ---
 
 #### Steps
 
-1. **Set Up Filtering**
+1. **Understand What to Test**
 
-   - **Action Items:**
-     - Integrate Django REST Framework's filtering capabilities to allow users to filter the book list by various attributes like `title`, `author`, and `publication_year`.
-     - Use DRF's **`DjangoFilterBackend`** or similar tools to set up comprehensive filtering options in your `ListView`.
+   - **Identify Key Areas:**
+     - Focus on testing CRUD operations for the `Book` model endpoints.
+     - Test the filtering, searching, and ordering functionalities to verify they work as intended.
+     - Ensure that permissions and authentication mechanisms are correctly enforcing access controls.
 
-2. **Implement Search Functionality**
+2. **Set Up Testing Environment**
 
-   - **Search Setup:**
-     - Enable search functionality on one or more fields of the `Book` model, such as `title` and `author`.
-     - Configure the **`SearchFilter`** in your API to allow users to perform text searches on these fields.
+   - **Configure Test Settings:**
+     - Use Django's built-in test framework which is based on Python's `unittest` module.
+     - Configure a separate test database to avoid impacting your production or development data.
 
-3. **Configure Ordering**
+3. **Write Test Cases**
 
-   - **Ordering Configuration:**
-     - Allow users to order the results by any field of the `Book` model, particularly `title` and `publication_year`.
-     - Set up the **`OrderingFilter`** to provide front-end flexibility in sorting query results.
+   - **Develop Test Scenarios:**
+     - Write tests that simulate API requests and check for correct status codes and response data. This includes:
+       - Creating a `Book` and ensuring the data is correctly saved and returned.
+       - Updating a `Book` and verifying the changes are reflected.
+       - Deleting a `Book` and ensuring it is removed from the database.
+       - Testing each endpoint with appropriate authentication and permission scenarios to ensure security controls are effective.
 
-4. **Update API Views**
+4. **Run and Review Tests**
 
-   - **View Modifications:**
-     - Adjust your `BookListView` to incorporate filtering, searching, and ordering functionalities.
-     - Ensure that these capabilities are clearly defined and integrated into the view logic.
+   - **Execute Tests:**
+     - Run your test suite using Django's `manage.py` command:
+```bash
+       python manage.py test api
+```
+     - Review the outputs and fix any issues or bugs identified by the tests.
 
-5. **Test API Functionality**
+5. **Document Your Testing Approach**
 
-   - **Testing Guidelines:**
-     - Test the filtering, searching, and ordering features to ensure they work correctly.
-     - Use API testing tools like Postman or curl to make requests with various query parameters to evaluate how the API handles them.
-
-6. **Document the Implementation**
-
-   - **Documentation Requirements:**
-     - Detail how filtering, searching, and ordering were implemented in your views.
-     - Include examples of how to use these features in API requests in the project documentation or code comments.
+   - **Testing Documentation:**
+     - Document your testing strategy and individual test cases.
+     - Provide guidelines on how to run the tests and interpret test results.

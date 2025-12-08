@@ -49,6 +49,8 @@ class BookListView(generics.ListAPIView):
     ordering_fields = ['title', 'publication_year']
     ordering = ['title']  # default sort
 
+# ListAPIView always returns a list multiple objects
+
 
 # RETRIEVE ONE BOOK
 class BookDetailView(generics.RetrieveAPIView):
