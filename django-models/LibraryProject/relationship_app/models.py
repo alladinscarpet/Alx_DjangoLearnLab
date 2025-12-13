@@ -22,7 +22,13 @@ class Book(models.Model):
     def __str__(self):
         return f"'{self.title}', written by {self.author}"
 
-    # The Meta class is used to give extra information about the model.
+    # The Meta class is used to define additional metadata about a model, form, or view.
+    '''
+    control default sorting → ordering
+    change model name → verbose_name
+    make unique together → unique_together
+    set DB table name → db_table
+    '''
     class Meta:
         permissions = [
             ("can_add_book", "Can add a book"),

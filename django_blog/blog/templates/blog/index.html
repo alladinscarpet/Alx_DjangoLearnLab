@@ -5,8 +5,10 @@
 {% block content %}
 {% if user.is_authenticated %}
     <h2>Welcome back, {{ user.username }}!</h2>
+    <br>
 {% else %}
     <h2>Welcome to the Django Blog!</h2>
+    <br>
 {% endif %}
 
 <p>Discover amazing posts, share your thoughts, and join our community.</p>

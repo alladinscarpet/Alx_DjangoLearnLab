@@ -4,6 +4,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
+from .models import Post
 
 # Use the project's current User model, whether it's the default Django User or a custom one
 User = get_user_model()
@@ -16,8 +17,22 @@ class RegisterForm(UserCreationForm):
         model = User
         fields = ("username", "email", "password1", "password2")
 
+
 # handles editing existing user information (username + email).
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ("username", "email")
+
+
+# ModelForm for create/edit posts
+class PostForm(forms.ModelForm):
+    '''We exclude author and published_date from the form; author will be set in the view.'''
+    class Meta:
+        model = Post
+        fields = ['title', 'content']
+        widgets = {
+            'title': forms.TextInput(attrs={'placeholder': 'Post title'}),
+            'content': forms.Textarea(attrs={'rows': 10}),
+        }
+

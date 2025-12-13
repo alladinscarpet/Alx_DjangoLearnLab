@@ -3,7 +3,9 @@ Where you define what should happen when someone visits
 a certain web page (the logic behind routes).
 
 
-DRF gives you ready-made class-based views like:
+DRF gives you ready-made class-based views to
+return JSON responses for API clients like:
+
 ListAPIView → handles GET list requests automatically
 RetrieveAPIView → handles a single object GET
 CreateAPIView → handles POST
