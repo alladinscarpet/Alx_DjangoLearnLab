@@ -21,12 +21,16 @@ urlpatterns = [
     # CRUD routes
     # ex: GET /blog/posts
     path('posts/', views.PostListView.as_view(), name='post-list'),
+
     # ex: GET blog/posts/<pk>/
     path('posts/<int:pk>/', views.PostDetailView.as_view(), name='post-detail'),
-    # ex: POST blog/posts/create/
-    path('posts/create/', views.PostCreateView.as_view(), name='post-create'),
-    # ex: PUT/PATCH blog/posts/update/<pk>
-    path('blog/posts/<int:pk>/', views.PostUpdateView.as_view(), name='post-update'),
-    # ex: DELETE blog/posts/delete/<pk>
-    path('posts/delete/<int:pk>/', views.PostDeleteView.as_view(), name='post-delete'),
+
+    # ex: POST blog/post/new/
+    path('post/new/', views.PostCreateView.as_view(), name='post-create'),
+
+    # ex: PUT/PATCH blog/post/<pk>/update/
+    path('post/<int:pk>/update/', views.PostUpdateView.as_view(), name='post-update'),
+
+    # ex: DELETE blog/posts/<pk>/delete/
+    path('post/<int:pk>/delete/', views.PostDeleteView.as_view(), name='post-delete'),
 ]
