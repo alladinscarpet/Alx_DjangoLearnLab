@@ -4,7 +4,8 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
-from .models import Post
+from .models import Post, Comment
+
 
 # Use the project's current User model, whether it's the default Django User or a custom one
 User = get_user_model()
@@ -34,5 +35,25 @@ class PostForm(forms.ModelForm):
         widgets = {
             'title': forms.TextInput(attrs={'placeholder': 'Post title'}),
             'content': forms.Textarea(attrs={'rows': 10}),
+        }
+
+
+class CommentForm(forms.ModelForm):
+    """
+    Automatically creates a textarea for writing a comment
+    Ensures the comment matches the Comment model rules
+    Handles:
+    validation (e.g. empty comments)
+    cleaning user input
+    saving the comment to the database
+    """
+    class Meta:
+        model = Comment
+        fields = ["content"]
+        widgets = {
+            "content": forms.Textarea(attrs={
+                "rows": 4,
+                "placeholder": "Write your comment here..."
+            })
         }
 

@@ -33,4 +33,13 @@ urlpatterns = [
 
     # ex: DELETE blog/posts/<pk>/delete/
     path('post/<int:pk>/delete/', views.PostDeleteView.as_view(), name='post-delete'),
+
+
+    # Comments
+    # ex: POST blog/poss/1/comments/new/
+    path("posts/<int:post_id>/comments/new/", views.CommentCreateView.as_view(), name="comment-create"),
+
+    # ex: PUT/PATCH blog/comments/<pk>/edit/
+    path("comments/<int:pk>/edit/", views.CommentUpdateView.as_view(), name="comment-edit"),
+    path("comments/<int:pk>/delete/", views.CommentDeleteView.as_view(), name="comment-delete")
 ]

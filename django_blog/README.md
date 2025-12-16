@@ -232,3 +232,82 @@ Implement views, forms, and templates that support complete CRUD operations for 
 1. **Code Files**: Updated **`views.py`**, **`forms.py`**, **`models.py`**, and **`urls.py`** for the blog post features.
 2. **Template Files**: HTML templates for listing, viewing, creating, editing, and deleting blog posts.
 3. **Documentation**: Detailed documentation of the blog post management functionality.
+
+---
+
+---
+### 3. Adding Comment Functionality to Blog Posts
+
+
+#### Objective
+Enhance the interactivity of your Django blog project by implementing a comment system.  
+This will allow users to leave comments on blog posts, fostering community engagement and discussion.
+
+---
+
+#### Task Description
+In this task, you will expand the **`django_blog`** project by adding a comment feature to the blog posts.  
+Users will be able to read comments, and authenticated users will have the ability to post, edit, and delete their comments.
+
+---
+
+#### Steps
+
+1. **Define the Comment Model**
+
+   - **Model Creation:**
+     - In your `blog` app, create a **`Comment`** model with the following fields:
+       - **`post`**: A `ForeignKey` linking to the `Post` model, establishing a many-to-one relationship.
+       - **`author`**: A `ForeignKey` to Django's `User` model, indicating the user who wrote the comment.
+       - **`content`**: A `TextField` for the comment's text.
+       - **`created_at`**: A `DateTimeField` that records the time the comment was made.
+       - **`updated_at`**: A `DateTimeField` that records the last time the comment was updated.
+     - Ensure you run migrations to create this model in the database.
+
+2. **Create Comment Forms**
+
+   - **Form Setup:**
+     - Develop a **`CommentForm`** using Django's `ModelForm` to facilitate comment creation and updating.
+     - Ensure it includes validation rules as necessary.
+
+3. **Implement Comment Views**
+
+   - **CRUD Operations for Comments:**
+     - Implement views to handle CRUD operations for comments:
+       - A view to display all comments under a blog post.
+       - Forms to allow authenticated users to post new comments directly on the blog post detail page.
+       - Options for the comment author to edit or delete their comments.
+     - Use Django's generic views where applicable and ensure proper permissions are checked.
+
+4. **Set Up Comment Templates**
+
+   - **Template Integration:**
+     - Create templates for displaying, adding, editing, and deleting comments.
+     - These should be integrated into the blog post detail template so that users can see comments related to a specific post.
+     - Ensure the templates match the aesthetic of the blog and provide a good user experience.
+
+5. **Define URL Patterns**
+
+   - **URL Configuration:**
+     - Configure URL patterns to handle comment-related actions, such as adding a new comment, editing a comment, and deleting a comment.
+     - Ensure URLs are logically structured and intuitive, for example, using paths like `/posts/<int:post_id>/comments/new/` for creating a comment.
+
+6. **Test Comment Functionality**
+
+   - **Functionality Testing:**
+     - Thoroughly test the comment system to ensure that all functionalities work as expected. This includes making, editing, and deleting comments.
+     - Verify that permissions are correctly enforced, such as ensuring only the comment author can edit or delete their comment.
+
+7. **Documentation**
+
+   - **System Documentation:**
+     - Document the comment system thoroughly, explaining how to add, edit, and delete comments.
+     - Include any rules related to comment visibility and user permissions.
+
+---
+
+#### Deliverables
+
+1. **Code Files**: Include models, views, forms, and URL configurations for handling comments.
+2. **Template Files**: HTML templates for displaying and interacting with comments.
+3. **Documentation**: Detailed explanation of the comment functionality and how to interact with it.
