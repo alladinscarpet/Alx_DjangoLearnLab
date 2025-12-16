@@ -208,12 +208,12 @@ class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 
 #----------------------------------TAGS--------------------------------------------------#
-class TaggedPostListView(ListView):
+class PostByTagListView(ListView):
     """Displays all posts associated with a specific tag."""
     model = Post
     template_name = 'blog/tagged_posts.html'
 
-
+    # Filter posts where the tag name matches the URL
     def get_queryset(self):
         return Post.objects.filter(tags__name__iexact=self.kwargs['tag_name'])
 
