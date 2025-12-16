@@ -1,6 +1,15 @@
 <h1>{{ post.title }}</h1>
 <p>{{ post.content }}</p>
 
+<!-- Display Post Tags -->
+{% if post.tags.all %}
+    <p>Tags:
+        {% for tag in post.tags.all %}
+            <!-- Each tag is a link to a page showing all posts with that tag -->
+            <a href="{% url 'tagged-posts' tag.name %}">{{ tag.name }}</a>{% if not forloop.last %}, {% endif %}
+        {% endfor %}
+    </p>
+{% endif %}
 <hr>
 
 <h2>Comments</h2>

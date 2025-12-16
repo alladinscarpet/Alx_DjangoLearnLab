@@ -41,5 +41,11 @@ urlpatterns = [
 
     # ex: PUT/PATCH blog/comments/<pk>/edit/
     path("comment/<int:pk>/update/", views.CommentUpdateView.as_view(), name="comment-edit"),
-    path("comment/<int:pk>/delete/", views.CommentDeleteView.as_view(), name="comment-delete")
+    path("comment/<int:pk>/delete/", views.CommentDeleteView.as_view(), name="comment-delete"),
+
+
+    # Tags
+    path('search/', views.search, name='search'),
+    # View posts by tag
+    path('tags/<str:tag_name>/', views.TaggedPostListView.as_view(), name='tagged-posts'),
 ]

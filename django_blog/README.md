@@ -311,3 +311,79 @@ Users will be able to read comments, and authenticated users will have the abili
 1. **Code Files**: Include models, views, forms, and URL configurations for handling comments.
 2. **Template Files**: HTML templates for displaying and interacting with comments.
 3. **Documentation**: Detailed explanation of the comment functionality and how to interact with it.
+
+---
+
+---
+### 4. Implementing Advanced Features: Tagging and Search Functionality
+
+*
+
+#### Objective
+Enhance your Django blog project by adding tagging and search functionalities.  
+This will allow users to categorize posts via tags and search for posts based on keywords, improving the navigability and user experience of your blog.
+
+---
+
+#### Task Description
+In this final task for your **`django_blog`** project, you will develop features that enable users to tag their blog posts and search through posts based on tags or content keywords.  
+These features are essential for organizing content and making it easily discoverable.
+
+---
+
+#### Steps
+
+1. **Integrate Tagging Functionality**
+
+   - **Tag Model and Association:**
+     - Create a **`Tag`** model in your `blog` app with a `name` field if not already implemented.
+     - Establish a many-to-many relationship between **`Tag`** and **`Post`** models.
+     - Run Django migrations to update the database schema.
+
+2. **Modify Post Creation and Update Forms**
+
+   - **Form Adjustments for Tags:**
+     - Update the **`PostForm`** to include a field for adding or editing tags.
+     - Consider using a package like `django-taggit` for easier tag management.
+     - Ensure the form allows creating new tags that don’t already exist.
+
+3. **Develop Search Functionality**
+
+   - **Search Implementation:**
+     - Implement a search feature to allow users to search posts by title, content, or tags.
+     - Use Django’s **Q objects** for complex query lookups.
+     - Add a search bar in the template that sends queries to a view handling the search.
+
+4. **Create Templates for Tagging and Search**
+
+   - **Template Updates:**
+     - Update post templates to display associated tags.
+     - Make each tag clickable, linking to a filtered view showing posts with that tag.
+     - Implement a search results page displaying posts matching the search criteria.
+
+5. **Configure URL Patterns**
+
+   - **URL Configuration for New Features:**
+     - Add URL patterns to handle viewing posts by tag and processing search queries.
+     - Example paths: `/tags/<tag_name>/` and `/search/`.
+
+6. **Test Tagging and Search Features**
+
+   - **Testing Guidelines:**
+     - Test creating, editing, and viewing posts with tags.
+     - Validate the search functionality to ensure accurate retrieval of posts.
+     - Ensure all new features integrate seamlessly with existing functionalities.
+
+7. **Documentation**
+
+   - **Feature Documentation:**
+     - Document how to use the tagging and search features within your blog.
+     - Include instructions on adding tags to posts and using the search bar to find content.
+
+---
+
+#### Deliverables
+
+1. **Code Files**: Updated models, views, forms, and templates with tagging and search functionalities.  
+2. **Templates and URL Configurations**: HTML templates for tags and search results, along with corresponding URL configurations.  
+3. **Documentation**: Comprehensive guide explaining the tagging and search systems and instructions for users on how to use them.

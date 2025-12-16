@@ -21,6 +21,9 @@ from .models import Post, Comment
 from .forms import PostForm, CommentForm
 from django.shortcuts import get_object_or_404
 
+# tagging
+from django.db.models import Q
+
 #---------------------------------------------User Auth Views----------------------------------------------------#
 # Create your views here.
 def index(request):
@@ -202,5 +205,30 @@ class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
     def get_success_url(self):
         return reverse("post-detail", kwargs={"pk": self.object.post.pk})
+
+
+#----------------------------------TAGS--------------------------------------------------#
+class TaggedPostListView(ListView):
+    """Displays all posts associated with a specific tag."""
+    model = Post
+    template_name = 'blog/tagged_posts.html'
+    context_object_name = 'posts'
+
+    def get_queryset(self):
+        tag_name = self.kwargs.get('tag_name')
+        return Post.objects.filter(tags__name__iexact=tag_name)
+
+
+def search(request):
+    """
+    handles search requests by using Django's Q objects to filter posts by title, content, or tags.
+    """
+    query = request.GET.get('q', '')  # Get search query from URL parameter
+    posts = Post.objects.filter(
+        Q(title__icontains=query) |
+        Q(content__icontains=query) |
+        Q(tags__name__icontains=query)
+    ).distinct()  # Using Q objects for OR queries
+    return render(request, 'blog/search_results.html', {'posts': posts, 'query': query})
 
 
