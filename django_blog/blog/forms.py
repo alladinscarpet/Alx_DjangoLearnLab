@@ -4,7 +4,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
-from .models import Post, Comment, Tag
+from .models import Post, Comment
 
 
 # Use the project's current User model, whether it's the default Django User or a custom one
@@ -29,13 +29,6 @@ class ProfileForm(forms.ModelForm):
 # ModelForm for create/edit posts
 class PostForm(forms.ModelForm):
     '''We exclude author and published_date from the form; author will be set in the view.'''
-
-    tags = forms.ModelMultipleChoiceField(
-        queryset=Tag.objects.all(),
-        required=False,
-        widget=forms.CheckboxSelectMultiple
-    )
-
     class Meta:
         model = Post
         fields = ['title', 'content', 'tags']

@@ -212,12 +212,10 @@ class TaggedPostListView(ListView):
     """Displays all posts associated with a specific tag."""
     model = Post
     template_name = 'blog/tagged_posts.html'
-    context_object_name = 'posts'
+
 
     def get_queryset(self):
-        tag_name = self.kwargs.get('tag_name')
-        return Post.objects.filter(tags__name__iexact=tag_name)
-
+        return Post.objects.filter(tags__name__iexact=self.kwargs['tag_name'])
 
 def search(request):
     """
