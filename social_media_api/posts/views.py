@@ -98,3 +98,73 @@ class FeedView(generics.GenericAPIView):
             "results": serializer.data
         }, status=status.HTTP_200_OK)
 
+
+
+#-------------------------------------likes------------------------------------------------#
+from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
+from django.shortcuts import get_object_or_404
+from django.contrib.contenttypes.models import ContentType
+
+from .models import Post, Like
+from notifications.models import Notification
+
+
+class LikePostView(APIView):
+    """Allows authenticated users to like a post"""
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, pk):
+        # Fetch the post
+        post = get_object_or_404(Post, pk=pk)
+
+        # Prevent duplicate likes
+        like, created = Like.objects.get_or_create(
+            user=request.user,
+            post=post
+        )
+
+        if not created:
+            return Response(
+                {"detail": "You already liked this post."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        # Create notification for post author
+        Notification.objects.create(
+            recipient=post.author,
+            actor=request.user,
+            verb="liked your post",
+            target=post
+        )
+
+        return Response(
+            {"detail": "Post liked."},
+            status=status.HTTP_201_CREATED
+        )
+
+
+class UnlikePostView(APIView):
+    """Allows users to remove their like"""
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, pk):
+        post = get_object_or_404(Post, pk=pk)
+
+        like = Like.objects.filter(
+            user=request.user,
+            post=post
+        ).first()
+
+        if not like:
+            return Response(
+                {"detail": "You haven't liked this post."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        like.delete()
+        return Response(
+            {"detail": "Post unliked."},
+            status=status.HTTP_200_OK
+        )
+

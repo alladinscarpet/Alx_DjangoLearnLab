@@ -27,3 +27,22 @@ class Comment(models.Model):
     def __str__(self):
         return f"Comment by {self.author} on {self.post}"
 
+
+# Tracks which user liked which post
+class Like(models.Model):
+    user = models.ForeignKey(
+        User,  # Reference to custom user
+        on_delete=models.CASCADE
+    )
+    post = models.ForeignKey(
+        Post,
+        on_delete=models.CASCADE,
+        related_name='likes'  # Allows post.likes.all()
+    )
+    created_at = models.DateTimeField(auto_now_add=True)  # Timestamp when liked
+
+    class Meta:
+        unique_together = ('user', 'post')  # Prevent multiple likes by same user
+
+    def __str__(self):
+        return f"{self.user.username} liked {self.post.title}"

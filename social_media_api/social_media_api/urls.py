@@ -21,4 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/accounts/', include('accounts.urls')), # user accounts
     path('api/', include('posts.urls')),  # Posts & comments API
+    
 ]
