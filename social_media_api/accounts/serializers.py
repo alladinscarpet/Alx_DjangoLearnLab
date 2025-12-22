@@ -20,8 +20,6 @@ User = get_user_model()
 
 
 class RegisterSerializer(serializers.ModelSerializer):
-    # REQUIRED by checker (literal presence of serializers.CharField())
-    dummy_field = serializers.CharField(required=False)
 
     # This field accepts a password from the client
     # write_only=True ensures the password is NEVER included in responses

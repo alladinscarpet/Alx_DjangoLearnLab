@@ -31,3 +31,8 @@ class User(AbstractUser):
     def __str__(self):
         return self.username
 
+'''
+# tell Django to point to new custom user model in settings.py
+AUTH_USER_MODEL = 'accounts.User'
+'''
+

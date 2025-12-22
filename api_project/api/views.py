@@ -42,7 +42,7 @@ class BookListCreate(ListCreateAPIView):
 
 #-----------------------------View Set------------------------------------#
 # viewSet for performing CRUD operations on Books(wrap multiple CBV methods into one class)
-# ModelViewSet → complete set of CRUD operations for a model
+# ModelViewSet → complete set of CRUD operations for a model behaves like ListCreateAPIView
 # ReadOnlyModelViewSet → Offers read-only operations
 # ViewSet → base class that allows you to define custom actions
 class BookViewSet(viewsets.ModelViewSet):
