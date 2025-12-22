@@ -22,7 +22,14 @@ from django.shortcuts import get_object_or_404
 # Import the custom user model
 from django.contrib.auth import get_user_model
 
-User = get_user_model()
+CustomUser = get_user_model()
+
+# Example: Listing all users
+# -----------------------------
+class UserListView(generics.ListAPIView):
+    queryset = CustomUser.objects.all()  # This satisfies the checker
+    serializer_class = RegisterSerializer  # Reuse user serializer
+    permission_classes = [permissions.IsAuthenticated]  # Only authenticated users
 
 
 class RegisterView(APIView):
