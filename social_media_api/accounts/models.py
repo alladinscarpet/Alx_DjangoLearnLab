@@ -17,16 +17,15 @@ class User(AbstractUser):
         null=True
     )
 
-    # Followers: users following THIS user
-    # symmetrical=False → following is one-way
-    # related_name='following' → allows user.following.all()
-    # allows: “User A follows User B” without forcing B to follow A back.
-    followers = models.ManyToManyField(
-        'self',
-        symmetrical=False,
-        related_name='following',
+    # Single ManyToMany field to represent who this user is following
+    following = models.ManyToManyField(
+        'self',  # Self-referential
+        symmetrical=False,  # One-way relationship
+        related_name='followers',  # Reverse lookup to get all followers of a user
         blank=True
     )
+
+
 
     def __str__(self):
         return self.username

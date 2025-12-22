@@ -5,8 +5,8 @@
 
 ## Authentication
 
-Uses **Token Authentication**.
-Mental model: Office badge stored at reception such that every time you enter, security checks your badge against the system
+Uses **Token Authentication**.  
+**Mental model:** Office badge stored at reception such that every time you enter, security checks your badge against the system.
 
 Include the token in the header for authenticated requests:
 ```
@@ -19,7 +19,7 @@ Authorization: Token <your_token_here>
 
 ### 1.1 Register User
 
-**Endpoint:** `/api/register/`  
+**Endpoint:** `/api/accounts/register/`  
 **Method:** `POST`  
 **Description:** Create a new user and return an authentication token.  
 **Auth Required:** No
@@ -56,7 +56,7 @@ Authorization: Token <your_token_here>
 
 ### 1.2 Login User
 
-**Endpoint:** `/api/login/`  
+**Endpoint:** `/api/accounts/login/`  
 **Method:** `POST`  
 **Description:** Authenticate user and return a token.  
 **Auth Required:** No
@@ -80,6 +80,62 @@ Authorization: Token <your_token_here>
 ```json
 {
   "error": "Invalid credentials"
+}
+```
+
+---
+
+### 1.3 Follow User
+
+**Endpoint:** `/api/accounts/follow/<int:user_id>/`  
+**Method:** `POST`  
+**Description:** Follow another user by their user ID.  
+**Auth Required:** Yes
+
+#### Request Header:
+```
+Authorization: Token abc123def456
+```
+
+#### Response (200 OK):
+```json
+{
+  "detail": "You are now following user 5."
+}
+```
+
+#### Error (400 Bad Request if already following):
+```json
+{
+  "detail": "You are already following this user."
+}
+```
+
+---
+
+### 1.4 Unfollow User
+
+**Endpoint:** `/api/accounts/unfollow/<int:user_id>/`  
+**Method:** `POST`  
+**Description:** Unfollow a user.  
+**Auth Required:** Yes
+
+#### Request Header:
+```
+Authorization: Token abc123def456
+```
+
+#### Response (200 OK):
+```json
+{
+  "detail": "You have unfollowed user 5."
+}
+```
+
+#### Error (400 Bad Request if not following):
+```json
+{
+  "detail": "You are not following this user."
 }
 ```
 
@@ -385,10 +441,56 @@ No content
 
 ---
 
-## Notes:
+## 4. Feed Endpoint
+
+**Endpoint:** `/api/feed/`  
+**Method:** `GET`  
+**Description:** Get posts from users you follow, ordered by most recent.  
+**Auth Required:** Yes
+
+#### Request Header:
+```
+Authorization: Token <user_token>
+```
+
+#### Response (200 OK):
+```json
+{
+  "count": 7,
+  "num_pages": 1,
+  "current_page": 1,
+  "results": [
+    {
+      "id": 12,
+      "author": 3,
+      "title": "My Travel Post",
+      "content": "Visited the mountains today!",
+      "created_at": "2025-12-22T12:00:00Z",
+      "updated_at": "2025-12-22T12:00:00Z"
+    },
+    {
+      "id": 9,
+      "author": 5,
+      "title": "Cooking Tips",
+      "content": "Learned a new recipe!",
+      "created_at": "2025-12-21T09:30:00Z",
+      "updated_at": "2025-12-21T09:30:00Z"
+    }
+  ]
+}
+```
+
+#### Optional query parameter:
+`?page=2` to fetch the next page of posts.
+
+---
+
+## Notes
 
 - All create/update/delete operations require **Token authentication**.
 - Listing posts/comments is open to anyone.
 - Author-only restrictions are enforced via the `IsAuthorOrReadOnly` custom permission.
 - Dates are in ISO 8601 format (`YYYY-MM-DDTHH:MM:SSZ`).
 - Use the `Authorization: Token <token>` header for authenticated requests.
+- Follow/unfollow endpoints update the authenticated user's following list.
+- Feed endpoint dynamically shows posts from followed users and supports pagination.

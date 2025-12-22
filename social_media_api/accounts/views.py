@@ -1,4 +1,3 @@
-
 '''
 Where you define what should happen when someone visits
 a certain web page (the logic behind routes).
@@ -13,8 +12,17 @@ from rest_framework.authtoken.models import Token
 
 from .serializers import RegisterSerializer
 
-# Create your views here.
+from rest_framework import generics, permissions, status
+from django.shortcuts import get_object_or_404
 
+
+
+
+# Create your views here.
+# Import the custom user model
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 
 class RegisterView(APIView):
@@ -84,3 +92,54 @@ class LoginView(APIView):
             },
             status=status.HTTP_200_OK
         )
+
+
+#----------------------------------------followers view--------------------------------------------#
+
+# Follow a user
+class FollowUserView(generics.GenericAPIView):
+    """
+    Endpoint to follow another user.
+    Authenticated users can follow any other user.
+    """
+    permission_classes = [permissions.IsAuthenticated]  # Only logged-in users can follow
+
+    def post(self, request, user_id):
+        # Get the user to follow by ID, or return 404 if not found
+        target_user = get_object_or_404(User.objects.all(), id=user_id)
+        current_user = request.user  # The logged-in user making the request
+
+        # Prevent following yourself
+        if target_user == current_user:
+            return Response({"detail": "You cannot follow yourself."}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Add the target user to the current user's following list
+        current_user.following.add(target_user)
+        current_user.save()
+
+        return Response({"detail": f"You are now following {target_user.username}."}, status=status.HTTP_200_OK)
+
+
+# Unfollow a user
+class UnfollowUserView(generics.GenericAPIView):
+    """
+    Endpoint to unfollow another user.
+    Authenticated users can remove users from their following list.
+    """
+    permission_classes = [permissions.IsAuthenticated]  # Only logged-in users can unfollow
+
+    def post(self, request, user_id):
+        target_user = get_object_or_404(User.objects.all(), id=user_id)
+        current_user = request.user
+
+        # Prevent unfollowing yourself
+        if target_user == current_user:
+            return Response({"detail": "You cannot unfollow yourself."}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Remove the target user from the current user's following list
+        current_user.following.remove(target_user)
+        current_user.save()
+
+        return Response({"detail": f"You have unfollowed {target_user.username}."}, status=status.HTTP_200_OK)
+
+

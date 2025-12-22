@@ -1,6 +1,6 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import PostViewSet, CommentViewSet
+from .views import PostViewSet, CommentViewSet, FeedView
 
 # Create router
 # Router automatically generates all the necessary URLs for each
@@ -17,4 +17,7 @@ urlpatterns = [
     # PUT /api/posts/<id>/ → update post
     # DELETE /api/posts/<id>/ → delete post
     path('', include(router.urls)),
+
+    # ex: GET /api/feed/
+    path('feed/', FeedView.as_view(), name='feed'),
 ]
