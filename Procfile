@@ -1,1 +1,1 @@
-web: gunicorn --pythonpath social_media_api social_media_api.wsgi --log-file -
+web: cd social_media_api && gunicorn social_media_api.wsgi:application --log-file -
