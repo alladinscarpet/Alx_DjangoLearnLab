@@ -2,13 +2,13 @@
 
 This document outlines the deployment process for the **Social Media API** to Heroku, including configurations, troubleshooting steps, and maintenance considerations.
 
----
+
 
 ## Overview
 
 The Social Media API is deployed on **Heroku**, a cloud Platform-as-a-Service (PaaS) that simplifies Django application hosting by handling infrastructure, HTTPS, and process management automatically.
 
----
+
 
 ## Prerequisites
 
